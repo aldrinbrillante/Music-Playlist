@@ -27,6 +27,7 @@ class Playlist:
     while current_song.get_title() != title:
       index += 1
       current_song = current_song.get_next_song()
+
       if current_song == None:
         return -1
 
@@ -39,22 +40,25 @@ class Playlist:
   # This method takes one parameter, title, which is the song that should be removed. 
 
   def remove_song(self, title):
-    current_song == self.__first_song
+    previous_song = self.__first_song
+    current_song = self.__first_song
 
     
 
     if current_song.get_title() == title:
-      self.__first_song = current_song.get_next_song()
+      self.__first_song = self.__first_song.get_next_song()
       return f'Removed from Playlist: {current_song.get_title()}'
     
     while current_song.get_title() != title:
+      previous_song = current_song
       current_song = current_song.get_next_song()
 
       if current_song == None:
-        return f'No songs available'
+        return f'No song of that name is available'
 
       if current_song().get_title() == title:
-        current_song.set_next_song(current_song.get_next_song())
+        next_song = current_song.get_next_song()
+        previous_song.set_next_song(next_song)
         return f'Removed from Playlist: {current_song.get_title()}'
       
 
@@ -65,9 +69,10 @@ class Playlist:
   def length(self):
     index = 0
     current_song = self.__first_song
-    while current_song!= None:
+
+    while current_song != None:
       index += 1
-      current_song = current_song.get_next_song
+      current_song = current_song.get_next_song()
 
     return index
 
