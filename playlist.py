@@ -11,8 +11,7 @@ class Playlist:
   def add_song(self, title):
     # ... creates a song object
     new_song = Song(title)
-    #new_song.set_title(title)
-    new_song.set_next_song(self.__first_song)
+    new_song.next = self.__first_song
     self.__first_song = new_song
 
 
@@ -25,12 +24,15 @@ class Playlist:
     current_song = self.__first_song
     index = 0
 
-    while current_song != None:
-      if current_song.get_title() == title:
-        return index
+    while current_song.get_title() != title:
       index += 1
-      current_song = current_song.next 
-      return -1
+      current_song = current_song.get_next_song()
+      if current_song == None:
+        return -1
+
+    if current_song.get_title() == title:
+        return index
+      
 
 
   # TODO: Create a method called remove_song that removes a song from the playlist.
@@ -39,19 +41,21 @@ class Playlist:
   def remove_song(self, title):
     current_song == self.__first_song
 
-    if current_song == None:
-      return f'No songs available'
+    
 
     if current_song.get_title() == title:
       self.__first_song = current_song.get_next_song()
-      return f'Removed from Playlist: {title}'
+      return f'Removed from Playlist: {current_song.get_title()}'
     
     while current_song.get_title() != title:
       current_song = current_song.get_next_song()
 
-      if current_song.get_next_song().get_title() == title:
+      if current_song == None:
+        return f'No songs available'
+
+      if current_song().get_title() == title:
         current_song.set_next_song(current_song.get_next_song())
-        return f'Removed from Playlist: {title}'
+        return f'Removed from Playlist: {current_song.get_title()}'
       
 
 
@@ -63,7 +67,8 @@ class Playlist:
     current_song = self.__first_song
     while current_song!= None:
       index += 1
-      current_song = current_song.next
+      current_song = current_song.get_next_song
+
     return index
 
 
@@ -75,5 +80,20 @@ class Playlist:
   # 3. Song Title 3
 
   def print_songs(self):
+    index = 1
+    current_song = self.__first_song
+
+    if current_song == None:
+      print(f"No songs available.")
+      return None
+
+    while current_song.get_title() != None:
+      print (f'{index}. {current_song.get_title()}')
+      index += 1
+      current_song = current_song.get_next_song()
+
+      if current_song == None:
+        break
+
     
   
