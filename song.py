@@ -15,9 +15,9 @@ class Song:
     self.__title = str(title).title()
 
 
-  # TODO: Create a getter method for the next_song attribute, called get_next_song
+  # TODO: Created a getter method for the next_song attribute, called get_next_song
   def get_next_song(self):
-    pass
+    return self.__next_song
 
 
   # TODO: Create a setter method for the next_song attribute, called set_next_song
